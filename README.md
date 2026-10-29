@@ -39,6 +39,7 @@ visuals/        Selected churn analysis charts
 
 - Python and Jupyter Notebook
 - SQL
+- DBever
 - PostgreSQL / SQL shell (where configured in the accompanying workflow)
 - Databricks / Apache Spark dashboard workflow
 - Microsoft Power BI
