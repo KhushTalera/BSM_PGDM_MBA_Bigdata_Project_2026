@@ -1,0 +1,576 @@
+{
+  "datasets": [
+    {
+      "name": "ca6fc970",
+      "displayName": "Customer Churn Metrics",
+      "config": {
+        "version": "1.1",
+        "source": "workspace.default.khush",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          },
+          {
+            "name": "avg_monthly_charges",
+            "expr": "AVG(MonthlyCharges)",
+            "displayName": "Avg Monthly Charges",
+            "format": {
+              "type": "currency",
+              "currencyCode": "USD",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 2.0
+              }
+            }
+          },
+          {
+            "name": "avg_tenure",
+            "expr": "AVG(tenure)",
+            "displayName": "Avg Tenure",
+            "format": {
+              "type": "number",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 1.0
+              }
+            }
+          },
+          {
+            "name": "churned_count",
+            "expr": "COUNT(*) FILTER (WHERE Churn = 'Yes')",
+            "displayName": "Churned Customers"
+          },
+          {
+            "name": "churn_rate",
+            "expr": "MEASURE(churned_count) / MEASURE(count)",
+            "displayName": "Churn Rate",
+            "format": {
+              "type": "percentage",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 2.0
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "e632d48f",
+      "displayName": "Untitled page",
+      "layout": [
+        {
+          "widget": {
+            "name": "total_customers",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ca6fc970",
+                  "fields": [
+                    {
+                      "name": "measure(count)",
+                      "expression": "MEASURE(`count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Total Customers"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(count)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "churn_rate",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ca6fc970",
+                  "fields": [
+                    {
+                      "name": "measure(churn_rate)",
+                      "expression": "MEASURE(`churn_rate`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Churn Rate"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(churn_rate)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "avg_monthly_charges",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ca6fc970",
+                  "fields": [
+                    {
+                      "name": "measure(avg_monthly_charges)",
+                      "expression": "MEASURE(`avg_monthly_charges`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Avg Monthly Charges"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(avg_monthly_charges)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "avg_tenure",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ca6fc970",
+                  "fields": [
+                    {
+                      "name": "measure(avg_tenure)",
+                      "expression": "MEASURE(`avg_tenure`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Avg Tenure (months)"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(avg_tenure)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 9,
+            "y": 0,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "churn_distribution",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ca6fc970",
+                  "fields": [
+                    {
+                      "name": "measure(count)",
+                      "expression": "MEASURE(`count`)"
+                    },
+                    {
+                      "name": "Churn",
+                      "expression": "`Churn`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Churn Distribution"
+              },
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "measure(count)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "count"
+                },
+                "color": {
+                  "fieldName": "Churn",
+                  "displayName": "Churn",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 4,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "count_by_contract",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ca6fc970",
+                  "fields": [
+                    {
+                      "name": "Contract",
+                      "expression": "`Contract`"
+                    },
+                    {
+                      "name": "measure(count)",
+                      "expression": "MEASURE(`count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Customers by Contract Type"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Contract",
+                  "displayName": "Contract",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(count)",
+                  "displayName": "count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "Contract",
+                  "displayName": "Contract",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 8,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "count_by_internet_service",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ca6fc970",
+                  "fields": [
+                    {
+                      "name": "InternetService",
+                      "expression": "`InternetService`"
+                    },
+                    {
+                      "name": "measure(count)",
+                      "expression": "MEASURE(`count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Customers by Internet Service"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "InternetService",
+                  "displayName": "InternetService",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(count)",
+                  "displayName": "count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "InternetService",
+                  "displayName": "InternetService",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 8,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "count_by_payment_method",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ca6fc970",
+                  "fields": [
+                    {
+                      "name": "PaymentMethod",
+                      "expression": "`PaymentMethod`"
+                    },
+                    {
+                      "name": "measure(count)",
+                      "expression": "MEASURE(`count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Customers by Payment Method"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "PaymentMethod",
+                  "displayName": "PaymentMethod",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(count)",
+                  "displayName": "count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "PaymentMethod",
+                  "displayName": "PaymentMethod",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 8,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "summary_table",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ca6fc970",
+                  "fields": [
+                    {
+                      "name": "Contract",
+                      "expression": "`Contract`"
+                    },
+                    {
+                      "name": "Churn",
+                      "expression": "`Churn`"
+                    },
+                    {
+                      "name": "measure(count)",
+                      "expression": "MEASURE(`count`)"
+                    },
+                    {
+                      "name": "measure(avg_monthly_charges)",
+                      "expression": "MEASURE(`avg_monthly_charges`)"
+                    },
+                    {
+                      "name": "measure(avg_tenure)",
+                      "expression": "MEASURE(`avg_tenure`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Churn Summary by Contract Type"
+              },
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "Contract"
+                  },
+                  {
+                    "fieldName": "Churn"
+                  },
+                  {
+                    "fieldName": "measure(count)"
+                  },
+                  {
+                    "fieldName": "measure(avg_monthly_charges)"
+                  },
+                  {
+                    "fieldName": "measure(avg_tenure)"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 14,
+            "width": 12,
+            "height": 5
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
