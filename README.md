@@ -75,3 +75,5 @@ Access to the live dashboard may depend on Databricks permissions. The dashboard
 ## Academic use
 
 Prepared for academic evaluation and portfolio demonstration. Validate all paths, database settings, and dashboard permissions before rerunning the workflow.
+
+https://www.linkedin.com/in/khushtalera/
